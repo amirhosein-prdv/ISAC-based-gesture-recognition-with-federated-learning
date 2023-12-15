@@ -1,2 +1,5 @@
 .zip filter=lfs diff=lfs merge=lfs -text
+<<<<<<< HEAD
 zip filter=lfs diff=lfs merge=lfs -text
+=======
+>>>>>>> e71df37748ab92014848a05d61612450a4c1113a
