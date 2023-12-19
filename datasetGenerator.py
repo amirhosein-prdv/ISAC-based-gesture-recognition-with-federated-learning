@@ -46,7 +46,8 @@ dataset_gesture = { '20181109':['Push & Pull', 'Sweep', 'Clap', 'Slide', 'Draw-Z
                     }
 
 data_dir = 'BVP/'
-ALL_MOTION = [i for i in range(1, 10)]
+num_class = 3
+ALL_MOTION = [i for i in range(1, num_class+1)]
 N_MOTION = len(ALL_MOTION) # Number of output classes
 T_MAX = 38 # Number of timestamps
 
