@@ -4,18 +4,18 @@ import scipy.io as scio
 import torch
 
 
-gesture = {'Push & Pull':1,
-            'Sweep':2,
-            'Clap':3,
-            'Slide':4,
-            'Draw-N (V)':5,
-            'Draw-O (V)':6,
+gesture = {'Sweep':1,
+            'Clap':2,
+            'Slide':3,
+            'Draw-N (V)':4,
+            'Push & Pull':5,
+            'Draw-O (H)':6,
             'Draw-Rectangle':7,
             'Draw-Triangle':8,
             'Draw-Zigzag (H)':9,
             'Draw-Zigzag (V)':10,
             'Draw-N (H)':11,
-            'Draw-O (H)':12,
+            'Draw-O (V)':12,
             'Draw-1':13,
             'Draw-2':14,
             'Draw-3':15,
@@ -46,7 +46,7 @@ dataset_gesture = { '20181109':['Push & Pull', 'Sweep', 'Clap', 'Slide', 'Draw-Z
                     }
 
 data_dir = 'BVP/'
-num_class = 3
+num_class = 4
 ALL_MOTION = [i for i in range(1, num_class+1)]
 N_MOTION = len(ALL_MOTION) # Number of output classes
 T_MAX = 38 # Number of timestamps
@@ -88,7 +88,6 @@ def load_data(path_to_data, motion_sel, target_user):
             file_path = os.path.join(data_root, data_file_name)
             date = data_root.split('/')[1].split('-')[0]
             try:
-                data_1 = scio.loadmat(file_path)['velocity_spectrum_ro']
                 ges_num = int(data_file_name.split('-')[1])
                 ges_lable = dataset_gesture[date][ges_num-1]
                 label_1 = gesture[ges_lable]
@@ -96,11 +95,6 @@ def load_data(path_to_data, motion_sel, target_user):
                 location = int(data_file_name.split('-')[2])
                 orientation = int(data_file_name.split('-')[3])
                 repetition = int(data_file_name.split('-')[4])
-                # print(data_1.shape)
-                
-                # Update T_MAX
-                if T_MAX < np.array(data_1).shape[2]:
-                    T_MAX = np.array(data_1).shape[2]
                     
                 # Select Motion
                 if (label_1 not in motion_sel):
@@ -118,9 +112,15 @@ def load_data(path_to_data, motion_sel, target_user):
                 # if (orientation not in [1,2,4,5]):
                 #     continue
                 
+                data_1 = scio.loadmat(file_path)['velocity_spectrum_ro']
+                # print(data_1.shape)
+                
+                # Update T_MAX
+                if T_MAX < np.array(data_1).shape[2]:
+                    T_MAX = np.array(data_1).shape[2]
+
                 # Normalization
                 data_normed_1 = normalize_data(data_1)
-                
                                 
             except Exception as error:
                 # print(type(error).__name__,' : ', error)
@@ -135,7 +135,7 @@ def load_data(path_to_data, motion_sel, target_user):
 
     # Swap axes
     data = np.swapaxes(np.swapaxes(data, 1, 3), 2, 3)   # [N,20,20',T_MAX]=>[N,T_MAX,20,20']
-    data = np.expand_dims(data, axis=2)    # [N,T_MAX,20,20]=>[N,T_MAX,20,20,1]
+    # data = np.expand_dims(data, axis=2)    # [N,T_MAX,20,20]=>[N,T_MAX,20,20,1]
 
     # Convert label to ndarray
     label = np.array(label)
