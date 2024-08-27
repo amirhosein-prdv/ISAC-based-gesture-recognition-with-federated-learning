@@ -1,11 +1,15 @@
 # ISAC-based-gesture-recognition-with-federated-learning
 
-Decentralized sensing framework for ISAC-based gesture recognition systems with real Wi-Fi dataset (WIDAR 3.0)
+Welcome to the repository for the Decentralized Sensing Framework designed for ISAC-based gesture recognition systems using the real Wi-Fi dataset, WIDAR 3.0.
 
-In this repository, I implemented **FedAvg**, **FedProx** and **FedADMM** algorithms with Pytorch framework.
-I also robust the models against adversarial attack with some adversarial methods like **SAM, FGSM, Poisoning attacks, Evasion atttacks** and etc.
+This project showcases the implementation of several federated learning algorithms, including FedAvg, FedProx, and FedADMM, utilizing the PyTorch framework. These algorithms are key to distributed machine learning, allowing models to be trained across multiple devices while keeping data decentralized.
 
+Additionally, to enhance the robustness of the models, we have incorporated various adversarial defense techniques. These methods include SAM (Sharpness-Aware Minimization), FGSM (Fast Gradient Sign Method), Poisoning Attacks, and Evasion Attacks, among others. These techniques are crucial for improving model resilience against potential adversarial threats.
 
+## Features
+- Federated Learning Algorithms: Implementation of **FedAvg, FedProx, and FedADMM.**
+- Adversarial Defense Methods: Application of **SAM, FGSM, Poisoning Attacks, Evasion Attacks**, etc.
+- Real Wi-Fi Dataset: Utilization of WIDAR 3.0 for gesture recognition.
 
 ## The model and Data used in this algorithms:
 
